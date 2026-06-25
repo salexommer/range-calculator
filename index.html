@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./vendor/react.production.min.js"></script>
+<script src="./vendor/react-dom.production.min.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0e7a63"/><g fill="#fff"><rect x="30" y="58" width="40" height="6" rx="3" opacity=".35"/><rect x="38" y="58" width="18" height="6" rx="3"/><circle cx="44" cy="61" r="5" stroke="#0e7a63" stroke-width="2"/><text x="50" y="44" font-family="monospace" font-size="20" font-weight="700" text-anchor="middle">SB</text></g></svg></template>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0}
+  input::placeholder{color:#aab0b8}
+  input:focus{outline:none;border-color:var(--ac,#0e7a63) !important;box-shadow:0 0 0 3px color-mix(in srgb, var(--ac,#0e7a63) 14%, transparent) !important}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#f3f4f6;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#15171c;padding:30px 26px 60px; --ac: {{ accent }};">
+  <div style="max-width:1180px;margin:0 auto;">
+
+    <header style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #e3e5e9;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:38px;height:38px;border-radius:9px;background:var(--ac,#0e7a63);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:#fff;letter-spacing:-.02em;">SB</div>
+        <div>
+          <div style="font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1.1;">Salary Benchmark</div>
+          <div style="font-size:12.5px;color:#6c7079;margin-top:2px;">Sourced market ranges &mdash; or an honest &ldquo;not enough data yet&rdquo;</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#6c7079;text-transform:uppercase;border:1px solid #e0e2e7;background:#fff;padding:7px 11px;border-radius:7px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--ac,#0e7a63);display:inline-block;"></span>
+        {{ sourceShort }} &middot; {{ sourceAsOf }}
+      </div>
+    </header>
+
+    <div style="display:grid;grid-template-columns:368px 1fr;gap:18px;align-items:start;">
+
+      <!-- INPUT PANEL -->
+      <div style="background:#fff;border:1px solid #e3e5e9;border-radius:12px;padding:20px;position:sticky;top:20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8b9098;margin-bottom:8px;">Role title</div>
+        <input list="roleList" value="{{ role }}" onInput="{{ onRoleInput }}" placeholder="e.g. Senior Software Engineer" style="width:100%;padding:11px 12px;border:1px solid #d9dce1;border-radius:9px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#15171c;background:#fff;transition:border-color .12s,box-shadow .12s;" />
+        <datalist id="roleList"><sc-for list="{{ roleSuggestions }}" as="s" hint-placeholder-count="8"><option value="{{ s }}"></option></sc-for></datalist>
+
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8b9098;margin:16px 0 8px;">Location</div>
+        <input list="locList" value="{{ location }}" onInput="{{ onLocationInput }}" placeholder="e.g. New York" style="width:100%;padding:11px 12px;border:1px solid #d9dce1;border-radius:9px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#15171c;background:#fff;transition:border-color .12s,box-shadow .12s;" />
+        <datalist id="locList"><sc-for list="{{ locationSuggestions }}" as="s" hint-placeholder-count="3"><option value="{{ s }}"></option></sc-for></datalist>
+
+        <div style="height:1px;background:#edeef1;margin:18px 0;"></div>
+
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8b9098;margin-bottom:10px;">Try a covered combination</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <sc-for list="{{ presets }}" as="p" hint-placeholder-count="4">
+            <button onClick="{{ p.apply }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;padding:9px 11px;border:1px solid #e6e8ec;background:#fafbfc;border-radius:8px;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;" style-hover="border-color:var(--ac,#0e7a63);background:#fff;">
+              <span style="font-size:13px;font-weight:500;color:#2b2f36;">{{ p.role }}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8b9098;white-space:nowrap;">{{ p.loc }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="height:1px;background:#edeef1;margin:18px 0 14px;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9aa0a8;margin-bottom:9px;">Coverage</div>
+        <div style="font-size:12px;line-height:1.55;color:#7b8089;">
+          <span style="color:#5a5f67;font-weight:500;">{{ coveredRoleCount }} occupations</span> &times; <span style="color:#5a5f67;font-weight:500;">{{ coveredGeoCount }} US geographies</span>, all drawn from one named survey. Anything outside that returns &ldquo;not enough data&rdquo; rather than a guess. UK, and roles with no clean survey match, are deliberately uncovered.
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- ===================== OK STATE ===================== -->
+        <sc-if value="{{ ok }}" hint-placeholder-val="{{ true }}">
+
+        <!-- Headline + range -->
+        <div style="background:#fff;border:1px solid #e3e5e9;border-radius:12px;padding:24px 26px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;">
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#8b9098;">Working range &middot; P25&ndash;P75</div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-top:7px;flex-wrap:wrap;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;letter-spacing:-.02em;line-height:1.05;color:#15171c;">{{ workingRange }}</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b9098;">{{ currencyCode }} &middot; base</div>
+              </div>
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:11px;font-size:12.5px;color:#6c7079;">
+                <span>Survey median <span style="font-family:'JetBrains Mono',monospace;font-weight:600;color:#33373e;">{{ median }}</span> <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9aa0a8;">P50</span></span>
+                <span style="color:#cfd3d8;">&middot;</span>
+                <span>Source <span style="font-weight:600;color:#33373e;">{{ sourceShort }}</span></span>
+                <span style="color:#cfd3d8;">&middot;</span>
+                <span>as of <span style="font-weight:600;color:#33373e;">{{ sourceAsOf }}</span></span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">
+              <span style="display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.05em;padding:6px 11px;border-radius:20px;color:#157f4f;background:#e7f4ec;border:1px solid #cfe9da;white-space:nowrap;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#157f4f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                CHECKED
+              </span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.08em;padding:6px 11px;border-radius:20px;color:{{ confColor }};background:{{ confBg }};white-space:nowrap;">{{ confLabel }}</span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+              <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#41454d;background:#f4f5f7;border:1px solid #e8eaee;padding:5px 10px;border-radius:7px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#9aa0a8;">{{ c.k }}</span>
+                <span style="font-weight:500;">{{ c.v }}</span>
+              </span>
+            </sc-for>
+          </div>
+
+          <!-- Range chart -->
+          <div style="margin-top:26px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8b9098;">Full spread &middot; P10&ndash;P90</div>
+              <div style="font-size:12.5px;color:#6c7079;">{{ seniorityLabel }} typically <span style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ac,#0e7a63);">{{ seniorityRange }}</span></div>
+            </div>
+
+            <div style="position:relative;height:10px;margin:30px 12px 0;">
+              <div style="position:absolute;inset:0;background:#edeff2;border-radius:5px;"></div>
+              <!-- seniority typical sub-band (darker) -->
+              <div style="position:absolute;top:0;bottom:0;left:{{ senLeft }};width:{{ senWidth }};background:color-mix(in srgb, var(--ac,#0e7a63) 30%, transparent);border-radius:5px;"></div>
+              <!-- working band p25-p75 outline -->
+              <div style="position:absolute;top:0;bottom:0;left:{{ bandLeft }};width:{{ bandWidth }};background:color-mix(in srgb, var(--ac,#0e7a63) 12%, transparent);border:1px solid color-mix(in srgb, var(--ac,#0e7a63) 32%, transparent);border-radius:5px;"></div>
+              <!-- median marker -->
+              <div style="position:absolute;top:-7px;height:24px;width:2px;left:{{ medianPos }};background:var(--ac,#0e7a63);transform:translateX(-50%);"></div>
+              <div style="position:absolute;top:-10px;width:14px;height:14px;border-radius:50%;left:{{ medianPos }};background:var(--ac,#0e7a63);border:2.5px solid #fff;transform:translateX(-50%);box-shadow:0 1px 4px rgba(14,122,99,.35);"></div>
+            </div>
+
+            <div style="position:relative;height:38px;margin:14px 12px 0;">
+              <sc-for list="{{ ticks }}" as="t" hint-placeholder-count="5">
+                <div style="{{ t.wrapStyle }}">
+                  <div style="{{ t.amtStyle }}">{{ t.amount }}</div>
+                  <div style="{{ t.labStyle }}">{{ t.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:16px;margin:18px 12px 0;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7b8089;">
+                <span style="width:13px;height:9px;border-radius:3px;background:color-mix(in srgb, var(--ac,#0e7a63) 12%, transparent);border:1px solid color-mix(in srgb, var(--ac,#0e7a63) 32%, transparent);display:inline-block;"></span>
+                Working band (P25&ndash;P75)
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7b8089;">
+                <span style="width:13px;height:9px;border-radius:3px;background:color-mix(in srgb, var(--ac,#0e7a63) 30%, transparent);display:inline-block;"></span>
+                {{ seniorityLabel }} typical
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7b8089;">
+                <span style="width:2px;height:13px;background:var(--ac,#0e7a63);display:inline-block;"></span>
+                Survey median (P50)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapping breakdown -->
+        <sc-if value="{{ showBreakdown }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#fff;border:1px solid #e3e5e9;border-radius:12px;padding:20px 22px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8b9098;margin-bottom:16px;">How this maps</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+            <sc-for list="{{ mapping }}" as="L" hint-placeholder-count="3">
+              <div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#9aa0a8;">{{ L.k }}</div>
+                <div style="font-size:12px;color:#9aa0a8;margin-top:6px;">{{ L.from }}</div>
+                <div style="display:flex;align-items:center;gap:7px;margin-top:4px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c3c7cd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  <span style="font-size:14px;font-weight:600;color:#15171c;">{{ L.to }}</span>
+                </div>
+                <div style="font-size:11.5px;color:#7b8089;margin-top:5px;line-height:1.45;">{{ L.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- Rationale -->
+        <sc-if value="{{ showRationale }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#fff;border:1px solid #e3e5e9;border-radius:12px;padding:20px 22px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8b9098;margin-bottom:12px;">Rationale</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.62;color:#33373e;text-wrap:pretty;">{{ rationale }}</p>
+        </div>
+        </sc-if>
+
+        <!-- Caveats -->
+        <sc-if value="{{ hasNotes }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <sc-for list="{{ notes }}" as="n" hint-placeholder-count="1">
+            <div style="display:flex;gap:11px;background:#fbf4e7;border:1px solid #f1e2c4;border-radius:10px;padding:13px 15px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#a96412;flex-shrink:0;margin-top:1px;">!</span>
+              <span style="font-size:13px;line-height:1.55;color:#7a5712;">{{ n }}</span>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- Source footer -->
+        <div style="background:#fbfbfc;border:1px solid #e8eaee;border-radius:12px;padding:16px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9aa0a8;margin-bottom:11px;">Source &amp; provenance</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 22px;">
+            <sc-for list="{{ provenance }}" as="s" hint-placeholder-count="5">
+              <div style="display:flex;flex-direction:column;gap:2px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:#a4a9b1;">{{ s.k }}</span>
+                <span style="font-size:12.5px;color:#41454d;line-height:1.4;">{{ s.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        </sc-if>
+
+        <!-- ===================== NO-DATA STATE ===================== -->
+        <sc-if value="{{ notEnoughData }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid #e3e5e9;border-radius:12px;padding:40px 30px 34px;">
+          <div style="text-align:center;">
+            <div style="width:50px;height:50px;border-radius:14px;background:#f1f2f4;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9aa0a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v4"></path><circle cx="12" cy="16" r=".6" fill="#9aa0a8" stroke="none"></circle></svg>
+            </div>
+            <div style="font-size:20px;font-weight:700;color:#33373e;letter-spacing:-.01em;">Not enough data yet</div>
+            <p style="max-width:480px;margin:9px auto 0;font-size:14px;line-height:1.6;color:#7b8089;text-wrap:pretty;">{{ missing }}</p>
+            <div style="display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#9aa0a8;border:1px dashed #d6d9de;padding:7px 13px;border-radius:8px;">
+              No number shown &mdash; a guess would be worse than nothing
+            </div>
+          </div>
+          <div style="height:1px;background:#edeef1;margin:24px 0 18px;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#a4a9b1;margin-bottom:9px;">Covered roles</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <sc-for list="{{ coveredRoles }}" as="r" hint-placeholder-count="8">
+                  <span style="font-size:12px;color:#41454d;background:#f4f5f7;border:1px solid #e8eaee;padding:4px 9px;border-radius:6px;">{{ r }}</span>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#a4a9b1;margin-bottom:9px;">Covered locations</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <sc-for list="{{ coveredGeos }}" as="gg" hint-placeholder-count="3">
+                  <span style="font-size:12px;color:#41454d;background:#f4f5f7;border:1px solid #e8eaee;padding:4px 9px;border-radius:6px;">{{ gg }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <div style="font-size:11.5px;line-height:1.5;color:#9aa0a8;padding:2px 4px;">{{ method }}</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1180, &quot;height&quot;: 820 },
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#0e7a63&quot;, &quot;options&quot;: [&quot;#0e7a63&quot;, &quot;#2b59c3&quot;, &quot;#5b54c9&quot;, &quot;#9c4668&quot;, &quot;#1f2937&quot;], &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showBreakdown&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;showRationale&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  SOURCE = {
+    name:"U.S. Bureau of Labor Statistics — Occupational Employment and Wage Statistics (OEWS)",
+    short:"BLS OEWS",
+    referencePeriod:"May 2025",
+    released:"2026-05-15",
+    url:"https://www.bls.gov/oes/",
+    dataUrl:"data.bls.gov/oes",
+    type:"Government employer survey (broad, unbiased; no job-level detail; base wages only)",
+    currency:"USD", symbol:"$",
+  };
+
+  OCCUPATIONS = {
+    "15-1252":{label:"Software Developers", keywords:["software engineer","software developer","software dev","developer","swe","backend","back-end","frontend","front-end","full stack","full-stack","programmer"], approx:[]},
+    "15-2051":{label:"Data Scientists", keywords:["data scientist","machine learning","ml engineer","ml scientist","applied scientist"], approx:[]},
+    "13-2011":{label:"Accountants and Auditors", keywords:["accountant","auditor","accounting"], approx:[]},
+    "13-2051":{label:"Financial and Investment Analysts", keywords:["financial analyst","finance analyst","investment analyst","fp&a","fpa","equity analyst"], approx:["fp&a","fpa"]},
+    "13-1141":{label:"Compensation, Benefits, and Job Analysis Specialists", keywords:["compensation","rewards","reward","remuneration","comp & ben","comp and ben","job analysis","benefits analyst"], approx:[]},
+    "13-1071":{label:"Human Resources Specialists", keywords:["hr specialist","hr generalist","human resources","people partner","hr business partner","hrbp","recruiter","talent acquisition","talent partner"], approx:["recruiter","talent acquisition","talent partner"]},
+    "11-2021":{label:"Marketing Managers", keywords:["marketing manager","marketing lead","head of marketing","marketing director","brand manager","growth manager"], approx:["brand manager","growth manager"]},
+    "13-1111":{label:"Management Analysts", keywords:["management analyst","management consultant","business analyst","operations analyst","strategy analyst","process analyst"], approx:["business analyst","operations analyst","strategy analyst","process analyst"]},
+  };
+
+  GEOS = {
+    "us-national":{area:"United States (national)", geoType:"national", match:["united states","usa","us","u.s.","national","remote us","remote (us)","nationwide","anywhere us"], metro:false},
+    "us-nyc":{area:"New York-Newark-Jersey City, NY-NJ (metro)", geoType:"metropolitan", match:["new york","nyc","new york city","manhattan","newark","jersey city","new york metro"], metro:true},
+    "us-sf":{area:"San Francisco-Oakland-Fremont, CA (metro)", geoType:"metropolitan", match:["san francisco","sf","bay area","oakland","fremont","san francisco metro"], metro:true},
+  };
+
+  DATA = {
+    "us-national":{
+      "11-2021":[90260,123020,166790,216410,293610,177770,395240],
+      "13-1071":[47180,58610,75940,99380,128720,81990,912430],
+      "13-1111":[60640,77950,101860,133370,171640,113790,898280],
+      "13-1141":[49480,60890,78210,100400,128920,84330,112380],
+      "13-2011":[56020,67020,83680,109810,144090,94750,1449500],
+      "13-2051":[63720,79290,102740,133340,180860,116800,361980],
+      "15-1252":[82460,105210,135980,171980,214670,148100,1687890],
+      "15-2051":[67240,85660,120230,158880,199130,126800,262440],
+    },
+    "us-nyc":{
+      "11-2021":[116040,156020,192840,246000,324990,207770,54730],
+      "13-1071":[58140,70210,89780,124130,155480,98100,52370],
+      "13-1111":[66430,94490,124390,168320,210390,133590,67630],
+      "13-1141":[63370,78390,89130,108830,138070,96980,9900],
+      "13-2011":[71850,82830,105650,137490,174750,119280,111930],
+      "13-2051":[79340,103140,128930,174990,225390,148350,53870],
+      "15-1252":[101690,130650,166830,205970,224590,165870,121000],
+      "15-2051":[79870,101320,135980,173160,216030,144700,23160],
+    },
+    "us-sf":{
+      "11-2021":[133990,174750,220480,309110,333430,235920,11170],
+      "13-1071":[61500,79820,103140,136040,171420,113530,16420],
+      "13-1111":[64080,87910,126730,163380,211790,137410,23560],
+      "13-1141":[74570,85800,102780,130410,165600,112700,2440],
+      "13-2011":[73420,88820,110730,143590,180060,120780,25170],
+      "13-2051":[82570,97490,130520,166350,217160,142560,9910],
+      "15-1252":[128090,163500,186640,219670,273400,193430,69030],
+      "15-2051":[99170,130430,170110,212970,272430,174830,10460],
+    },
+  };
+
+  SENIORITY_BANDS = [
+    {kws:["chief","vp","vice president","director","head of","head ","c-level","cxo"], label:"Director / Executive", band:["p90",null], note:"OEWS under-samples executives and excludes equity; p90 is a floor, not a ceiling — low confidence at this level."},
+    {kws:["manager","lead","principal","staff","senior manager"], label:"Manager / Lead / Principal", band:["p75","p90"], note:"Manager/lead pay typically sits in the upper band; the survey has no level field, so this is judgement."},
+    {kws:["senior","snr","sr.","sr "], label:"Senior", band:["p50","p75"], note:"Senior roles typically sit upper-middle of the distribution; the survey has no level field, so this is judgement."},
+    {kws:["junior","graduate","trainee","intern","entry","associate","apprentice"], label:"Junior / Entry", band:["p10","p25"], note:"Entry roles typically sit in the lower band; the survey has no level field, so this is judgement."},
+  ];
+  DEFAULT_SENIORITY = {label:"Mid / Unspecified level", band:["p25","p50"], note:"No seniority detected in the title; showing the mid band. The survey has no level field."};
+  THIN_SAMPLE_EMP = 5000;
+
+  state = { role:"Senior Software Engineer", location:"New York" };
+
+  _norm(t){ return (t||"").toLowerCase().trim().split(/\s+/).join(" "); }
+
+  matchRole(title){
+    const t = " " + this._norm(title) + " ";
+    let best = null;
+    for(const soc in this.OCCUPATIONS){ const occ=this.OCCUPATIONS[soc];
+      for(const kw of occ.keywords){ if(t.includes(kw)){ if(!best || kw.length>best.len) best={soc,occ,len:kw.length,kw}; } }
+    }
+    if(!best) return {soc:null, occ:null, approx:false};
+    return {soc:best.soc, occ:best.occ, approx:best.occ.approx.includes(best.kw)};
+  }
+  matchGeo(location){
+    const loc = this._norm(location);
+    if(!loc) return null;
+    for(const k in this.GEOS){ if(this.GEOS[k].match.includes(loc)) return k; }
+    for(const k in this.GEOS){ for(const m of this.GEOS[k].match){ if(m.length>=3 && (loc.includes(m)||m.includes(loc))) return k; } }
+    return null;
+  }
+  matchSeniority(title){
+    const t = " " + this._norm(title) + " ";
+    for(const s of this.SENIORITY_BANDS){ for(const kw of s.kws){ if(t.includes(kw)) return s; } }
+    return this.DEFAULT_SENIORITY;
+  }
+  money(amt){ if(amt==null) return "n/a"; return this.SOURCE.symbol + Math.round(amt).toLocaleString("en-US"); }
+  coverageRoles(){ return Object.values(this.OCCUPATIONS).map(o=>o.label); }
+  coverageGeos(){ return Object.values(this.GEOS).map(g=>g.area); }
+
+  benchmark(role, location){
+    const {soc, occ, approx} = this.matchRole(role);
+    const geoKey = this.matchGeo(location);
+    if(soc===null && geoKey===null) return {ok:false, missing:"Neither the role nor the location maps to data we actually hold."};
+    if(soc===null) return {ok:false, missing:"No covered occupation matches “"+(role||"").trim()+"”."};
+    if(geoKey===null) return {ok:false, missing:"“"+(location||"").trim()+"” is not a geography we hold survey data for."};
+    const row = this.DATA[geoKey][soc];
+    if(!row) return {ok:false, missing:occ.label+" has no published OEWS cell for "+this.GEOS[geoKey].area+"."};
+
+    const [p10,p25,p50,p75,p90,mean,emp] = row;
+    const pct = {p10,p25,p50,p75,p90};
+    const sen = this.matchSeniority(role);
+    const g = this.GEOS[geoKey];
+
+    let conf = g.metro ? "medium" : "medium-high";
+    const notes = [];
+    if(g.metro && emp < this.THIN_SAMPLE_EMP){ conf="low"; notes.push("Thin metro sample (~"+emp.toLocaleString("en-US")+" employed in this occupation here): the metro percentiles carry meaningfully wider sampling error."); }
+    else if(g.metro){ notes.push("Metro estimates carry more sampling error than the national figures."); }
+    if(approx){ if(conf==="medium-high") conf="medium"; notes.push("Role mapping is approximate: “"+(role||"").trim()+"” was proxied onto the “"+occ.label+"” occupation, which may be broader or narrower than the actual job."); }
+    if(sen.band[0]==="p90") notes.push(sen.note);
+    notes.push("OEWS is BASE WAGES ONLY — it excludes bonus, equity, and benefits, and has no job-level granularity. Treat as a market reference, not an offer.");
+
+    return {ok:true, soc, occupation:occ.label, approx, geoArea:g.area, geoType:g.geoType, metro:g.metro, pct, mean, emp, sen, conf, notes};
+  }
+
+  senRangeText(b){
+    const [lo,hi]=b.sen.band;
+    if(hi===null) return "at/above "+lo.toUpperCase()+" ("+this.money(b.pct[lo])+"+)";
+    return lo.toUpperCase()+"–"+hi.toUpperCase()+": "+this.money(b.pct[lo])+" – "+this.money(b.pct[hi]);
+  }
+
+  buildRationale(b){
+    const p=b.pct;
+    return "For "+(this.state.role||"").trim()+" in "+b.geoArea+", the "+this.SOURCE.short+" "+this.SOURCE.referencePeriod+" distribution runs "+this.money(p.p10)+" (P10) to "+this.money(p.p90)+" (P90), with a typical working band of "+this.money(p.p25)+"–"+this.money(p.p75)+" (P25–P75) and a survey median of "+this.money(p.p50)+". Given the title reads as "+b.sen.label.toLowerCase()+", comparable workers usually sit around "+this.senRangeText(b)+" — but note this is a judgement call, since the survey records no job level. Confidence: "+b.conf+". These are base wages only; add bonus, equity, and benefits separately, and validate against a leveled survey before committing an offer.";
+  }
+
+  onRoleInput = (e)=> this.setState({ role: e.target.value });
+  onLocationInput = (e)=> this.setState({ location: e.target.value });
+  applyPreset = (role, loc)=> ()=> this.setState({ role, location: loc });
+
+  renderVals(){
+    const accent = this.props.accentColor ?? "#0e7a63";
+    const showBreakdown = this.props.showBreakdown ?? true;
+    const showRationale = this.props.showRationale ?? true;
+
+    const presets=[
+      {role:"Senior Software Engineer", loc:"New York"},
+      {role:"Data Scientist", loc:"San Francisco"},
+      {role:"Accountant", loc:"United States"},
+      {role:"Marketing Manager", loc:"New York"},
+    ].map(p=>({role:p.role, loc:p.loc, apply:this.applyPreset(p.role,p.loc)}));
+
+    const roleSuggestions=["Senior Software Engineer","Data Scientist","Accountant","Financial Analyst","Compensation Analyst","HR Business Partner","Recruiter","Marketing Manager","Management Consultant","Business Analyst"];
+    const locationSuggestions=["United States","New York","San Francisco"];
+
+    const base = {
+      accent,
+      role:this.state.role, location:this.state.location,
+      onRoleInput:this.onRoleInput, onLocationInput:this.onLocationInput,
+      roleSuggestions, locationSuggestions, presets,
+      sourceShort:this.SOURCE.short, sourceAsOf:this.SOURCE.referencePeriod,
+      coveredRoles:this.coverageRoles(), coveredGeos:this.coverageGeos(),
+      coveredRoleCount:Object.keys(this.OCCUPATIONS).length, coveredGeoCount:Object.keys(this.GEOS).length,
+      currencyCode:this.SOURCE.currency,
+      method:"Sourced ranges · "+this.SOURCE.name+" · reference period "+this.SOURCE.referencePeriod+", released "+this.SOURCE.released+" · base wages only; not a substitute for a leveled survey before an offer.",
+      showBreakdown, showRationale,
+    };
+
+    const b = this.benchmark(this.state.role, this.state.location);
+
+    if(!b.ok){
+      return Object.assign(base, { ok:false, notEnoughData:true, missing:b.missing });
+    }
+
+    const m = this.money.bind(this);
+    const p = b.pct;
+    const confMap = {
+      "medium-high":{color:"#157f4f",bg:"#e7f4ec"},
+      "medium":{color:"#a96412",bg:"#fbf0df"},
+      "low":{color:"#c0392b",bg:"#fbe9e7"},
+    }[b.conf];
+
+    const lo=p.p10, hi=p.p90, span=(hi-lo)||1;
+    const pos=(v)=>((v-lo)/span*100);
+
+    const order=["p10","p25","p50","p75","p90"];
+    const ticks = order.map(k=>{
+      const v=p[k], strong=(k==="p50"), pp=pos(v);
+      const wrapStyle="position:absolute;top:0;left:"+pp.toFixed(1)+"%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap;";
+      const amtStyle = strong
+        ? "font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:"+accent+";"
+        : "font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;color:#4b4f57;";
+      const labStyle = strong
+        ? "font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:"+accent+";font-weight:600;"
+        : "font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#9aa0a8;";
+      return { amount:m(v), label:(k==="p50"?"P50 · MED":k.toUpperCase()), amtStyle, labStyle, wrapStyle };
+    });
+
+    // seniority sub-band positions
+    const sLo=p[b.sen.band[0]], sHi=b.sen.band[1]===null?p.p90:p[b.sen.band[1]];
+    const senLeft=pos(sLo), senRight=pos(sHi);
+
+    const chips=[
+      {k:"Occupation", v:b.occupation},
+      {k:"SOC", v:b.soc},
+      {k:"Geography", v:(b.metro?"Metro":"National")},
+      {k:"Seniority", v:b.sen.label},
+    ];
+
+    const mapping=[
+      {k:"Role", from:(this.state.role||"").trim()||"—", to:b.occupation, sub:"SOC "+b.soc+(b.approx?" · approximate mapping":" · direct match")},
+      {k:"Location", from:(this.state.location||"").trim()||"—", to:b.geoArea, sub:b.geoType.charAt(0).toUpperCase()+b.geoType.slice(1)+" cut · cross-industry"},
+      {k:"Seniority", from:"Parsed from title", to:b.sen.label, sub:"Points at "+(b.sen.band[1]===null?b.sen.band[0].toUpperCase()+"+":b.sen.band[0].toUpperCase()+"–"+b.sen.band[1].toUpperCase())+" of the real distribution"},
+    ];
+
+    const provenance=[
+      {k:"Survey", v:this.SOURCE.name},
+      {k:"As of", v:this.SOURCE.referencePeriod+" (survey reference period)"},
+      {k:"Released", v:this.SOURCE.released},
+      {k:"Cut", v:b.geoArea+", cross-industry, SOC "+b.soc},
+      {k:"Sample proxy", v:"~"+b.emp.toLocaleString("en-US")+" employed in this occupation/area"},
+      {k:"Re-pull", v:this.SOURCE.dataUrl},
+    ];
+
+    return Object.assign(base, {
+      ok:true, notEnoughData:false,
+      workingRange:m(p.p25)+" – "+m(p.p75),
+      median:m(p.p50),
+      confLabel:b.conf.toUpperCase().replace("-"," ")+" CONFIDENCE", confColor:confMap.color, confBg:confMap.bg,
+      chips, ticks,
+      bandLeft:pos(p.p25).toFixed(1)+"%", bandWidth:(pos(p.p75)-pos(p.p25)).toFixed(1)+"%",
+      senLeft:senLeft.toFixed(1)+"%", senWidth:Math.max(0,(senRight-senLeft)).toFixed(1)+"%",
+      medianPos:pos(p.p50).toFixed(1)+"%",
+      seniorityLabel:b.sen.label, seniorityRange:this.senRangeText(b),
+      mapping, provenance,
+      rationale:this.buildRationale(b),
+      notes:b.notes, hasNotes:b.notes.length>0,
+    });
+  }
+}
+</script>
+</body>
+</html>
