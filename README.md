@@ -20,6 +20,8 @@ experimenting with AI, by Alexander Sommer (Gen-Metrics). If you came from the s
   spectrum, and a step-by-step guide to replicate the tool yourself (logic → design → deploy).
 - **[`comp-claim-check/SKILL.md`](comp-claim-check/SKILL.md)** - the skill that makes the numbers
   trustworthy. Copy the `comp-claim-check/` folder into your project's `.claude/skills/` to use it.
+- **[The deck](deck/it-built-it-now-prove-it-holds.pptx)** (`.pptx`) - the Range-branded slides from
+  the session, including the warm-up poll and the four break-it questions.
 
 The four-check skill is the whole point: it is what turned a confident-but-fabricated first build
 into the *sourced-or-silent* tool described below.
@@ -65,6 +67,9 @@ Anything outside that returns "not enough data" by design.
 | `support.js` | The Claude Design `dc-runtime` — interprets the `<x-dc>` template + component logic and mounts it with React. |
 | `vendor/react*.min.js` | React 18.3.1 UMD (production), pinned and integrity-matched to `support.js`'s SRI hashes, so the app boots without a third-party CDN call. |
 | `salary_benchmark.py` | A standalone CLI version of the same sourced-or-silent benchmark (no dependencies). |
+| `comp-claim-check/SKILL.md` | The four-check skill that makes the tool's numbers trustworthy. Copy into `.claude/skills/`. |
+| `MASTERCLASS.md` | The session walkthrough and step-by-step replication guide. |
+| `deck/it-built-it-now-prove-it-holds.pptx` | The masterclass slide deck (PowerPoint export of the Range-branded Google Slides). |
 
 ## CLI usage
 
@@ -83,6 +88,16 @@ The site is static (just `index.html` + `support.js` + `vendor/`), deployed on
 ```bash
 vercel deploy --prod
 ```
+
+---
+
+## About
+
+**Alexander Sommer** - Founder of [Gen-Metrics](https://gen-metrics.com). Over a decade building AI
+products at scale across finance, logistics, and software, now focused on helping teams use AI well
+in the real world.
+
+🔗 **Website:** [gen-metrics.com](https://gen-metrics.com)
 
 ---
 
