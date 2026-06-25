@@ -11,6 +11,21 @@ inventing a confident number.
 
 ---
 
+## 🎓 Built live at the Range community masterclass
+
+This tool was built end to end during *"It Built It. Now Prove It Holds."* - a masterclass on
+experimenting with AI, by Alexander Sommer (Gen-Metrics). If you came from the session, start here:
+
+- **[MASTERCLASS.md](MASTERCLASS.md)** - the full walkthrough: the thesis, the four-level
+  spectrum, and a step-by-step guide to replicate the tool yourself (logic → design → deploy).
+- **[`comp-claim-check/SKILL.md`](comp-claim-check/SKILL.md)** - the skill that makes the numbers
+  trustworthy. Copy the `comp-claim-check/` folder into your project's `.claude/skills/` to use it.
+
+The four-check skill is the whole point: it is what turned a confident-but-fabricated first build
+into the *sourced-or-silent* tool described below.
+
+---
+
 ## Why it works this way
 
 This project was built around a compensation-claim integrity principle: **a benchmark is
