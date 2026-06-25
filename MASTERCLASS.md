@@ -173,7 +173,8 @@ The moment something is worth sharing, it stops being an experiment and becomes 
 ## The deck and the polls
 
 The talk ran on a short Range-branded deck (built with Claude to match the community's style) and
-four live Slido polls.
+four live Slido polls. The deck is in this repo:
+[`deck/it-built-it-now-prove-it-holds.pptx`](deck/it-built-it-now-prove-it-holds.pptx).
 
 **Warm-up poll** - *What's the most ambitious thing you've asked AI to do lately?*
 Find or look something up / Draft something / Think a problem through with me / Build or automate
@@ -191,6 +192,8 @@ one AI output you would have forwarded, and run the four questions on it first.
 
 ## About
 
-**Alexander Sommer** - Founder of Gen-Metrics. Over a decade building AI products at scale across
-finance, logistics, and software, now focused on helping teams use AI well in the real world. For
-collaboration, the host shared contact details with attendees.
+**Alexander Sommer** - Founder of [Gen-Metrics](https://gen-metrics.com). Over a decade building AI
+products at scale across finance, logistics, and software, now focused on helping teams use AI well
+in the real world.
+
+🔗 **Website:** [gen-metrics.com](https://gen-metrics.com)
