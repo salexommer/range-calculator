@@ -190,10 +190,15 @@ something. (A quick read of where the room sits on the four levels.)
 The close: **encode the check once, and let the agent run it from then on.** Try this week - take
 one AI output you would have forwarded, and run the four questions on it first.
 
-## About
+## Work with me
 
-**Alexander Sommer** - Founder of [Gen-Metrics](https://gen-metrics.com). Over a decade building AI
-products at scale across finance, logistics, and software, now focused on helping teams use AI well
-in the real world.
+This session is part of how **Gen-Metrics** helps teams go from AI-curious to shipping AI they can
+trust - org-wide programmes, workshops, keynotes, and custom AI labs that turn AI access into
+adoption. If you'd like a session like this for your team, or help taking an experiment to something
+that holds, get in touch:
 
-🔗 **Website:** [gen-metrics.com](https://gen-metrics.com)
+- 🌐 Website: **[gen-metrics.com](https://gen-metrics.com)**
+- 🎓 AI enablement & training: **[gen-metrics.com/ai-enablement.html](https://gen-metrics.com/ai-enablement.html)**
+
+*Alexander Sommer - Founder, Gen-Metrics. A decade building production AI systems across finance,
+logistics, and software, now helping teams use AI well in the real world.*

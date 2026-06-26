@@ -91,13 +91,22 @@ vercel deploy --prod
 
 ---
 
-## About
+## Work with me
 
-**Alexander Sommer** - Founder of [Gen-Metrics](https://gen-metrics.com). Over a decade building AI
-products at scale across finance, logistics, and software, now focused on helping teams use AI well
-in the real world.
+This masterclass is part of how **Gen-Metrics** helps teams go from AI-curious to shipping AI they
+can actually trust.
 
-🔗 **Website:** [gen-metrics.com](https://gen-metrics.com)
+Gen-Metrics builds AI that reaches production - the data foundations, products, internal assistants,
+and the guardrails underneath - and runs the enablement that turns AI access into adoption: org-wide
+programmes, workshops, keynotes, and custom AI labs like this one.
+
+**Want a session like this for your team, or help taking an experiment to something that holds?**
+
+- 🌐 Website: **[gen-metrics.com](https://gen-metrics.com)**
+- 🎓 AI enablement & training: **[gen-metrics.com/ai-enablement.html](https://gen-metrics.com/ai-enablement.html)**
+
+*Alexander Sommer - Founder, Gen-Metrics. A decade building production AI systems across finance,
+logistics, and software, now helping teams use AI well in the real world.*
 
 ---
 
